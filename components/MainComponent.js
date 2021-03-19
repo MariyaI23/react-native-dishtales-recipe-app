@@ -45,10 +45,28 @@ const HomeNavigator = createStackNavigator(
   }
 );
 
+const AboutNavigator = createStackNavigator(
+  {
+    About: { screen: About },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#f58742",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+    },
+  }
+);
+
 const MainNavigator = createBottomTabNavigator(
   {
     Home: { screen: HomeNavigator },
     Recipes: { screen: RecipesNavigator },
+    About: { screen: AboutNavigator}
   },
   {
     tabBarOptions: {
