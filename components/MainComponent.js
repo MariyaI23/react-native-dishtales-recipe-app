@@ -3,16 +3,42 @@ import Recipes from './RecipesComponent';
 //import { RECIPES } from '../shared/recipes';
 import RecipeInfo from './RecipeInfoComponent';
 import Home from "./HomeComponent";
-import { View, Platform } from 'react-native';
+import About from "./AboutComponent";
+import Contact from "./ContactComponent";
+import { View, Platform, StyleSheet, Image } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
+import { Icon } from "react-native-elements";
 //import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 
 const RecipesNavigator = createStackNavigator(
   {
-    Recipes: { screen: Recipes },
-    RecipeInfo: { screen: RecipeInfo },
+    Recipes: {
+      screen: Recipes,
+      navigationOptions: () => ({
+        headerLeft: (
+          <Icon name="spoon" type="font-awesome" iconStyle={styles.stackIcon} />
+        ),
+        headerRight: (
+          <Image
+            style={{ width: 80, height: 50, margin: 20 }}
+            source={require("./images/dish-tales-logo.jpg")}
+          />
+        ),
+      }),
+    },
+    RecipeInfo: {
+      screen: RecipeInfo,
+      navigationOptions: () => ({
+        headerRight: (
+          <Image
+            style={{ width: 80, height: 50, margin: 20 }}
+            source={require("./images/dish-tales-logo.jpg")}
+          />
+        ),
+      }),
+    },
   },
   {
     initialRouteName: "Recipes",
@@ -22,18 +48,18 @@ const RecipesNavigator = createStackNavigator(
       },
       headerTintColor: "#fff",
       headerTitleStyle: {
-          color: "#fff"
-      }
-    }
+        color: "#fff",
+      },
+    },
   }
 );
 
 const HomeNavigator = createStackNavigator(
   {
-    Home: { screen: Home }
+    Home: { screen: Home },
   },
   {
-    defaultNavigationOptions: {
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: "#f58742",
       },
@@ -41,7 +67,16 @@ const HomeNavigator = createStackNavigator(
       headerTitleStyle: {
         color: "#fff",
       },
-    },
+      headerLeft: (
+        <Icon name="home" type="font-awesome" iconStyle={styles.stackIcon} />
+      ),
+      headerRight: (
+        <Image
+          style={{ width: 80, height: 50, margin: 20 }}
+          source={require("./images/dish-tales-logo.jpg")}
+        />
+      ),
+    }),
   }
 );
 
@@ -50,7 +85,7 @@ const AboutNavigator = createStackNavigator(
     About: { screen: About },
   },
   {
-    defaultNavigationOptions: {
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: "#f58742",
       },
@@ -58,20 +93,97 @@ const AboutNavigator = createStackNavigator(
       headerTitleStyle: {
         color: "#fff",
       },
-    },
+      headerLeft: (
+        <Icon name="info" type="font-awesome" iconStyle={styles.stackIcon} />
+      ),
+      headerRight: (
+        <Image
+          style={{ width: 80, height: 50, margin: 20 }}
+          source={require("./images/dish-tales-logo.jpg")}
+        />
+      ),
+    }),
   }
 );
+
+const ContactNavigator = createStackNavigator(
+  {
+    Contact: { screen: Contact },
+  },
+  {
+    defaultNavigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: "#f58742",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+      headerLeft: (
+        <Icon
+          name="address-card"
+          type="font-awesome"
+          iconStyle={styles.stackIcon}
+        />
+      ),
+      headerRight: (
+        <Image
+          style={{ width: 80, height: 50, margin: 20 }}
+          source={require("./images/dish-tales-logo.jpg")}
+        />
+      ),
+    }),
+  }
+);
+
 
 const MainNavigator = createBottomTabNavigator(
   {
     Home: { screen: HomeNavigator },
     Recipes: { screen: RecipesNavigator },
-    About: { screen: AboutNavigator}
+    About: { screen: AboutNavigator},
+    Home: { screen: HomeNavigator,
+      navigationOptions: {
+        tabBarLabel: "Home",
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="home" type="font-awesome" color={tintColor} size={24} />
+        )
+      }
+     },
+    Recipes: { screen: RecipesNavigator,
+      navigationOptions: {
+        tabBarLabel: "Recipes",
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="spoon" type="font-awesome" color={tintColor} size={24} />
+        )
+      }
+     },
+    About: { screen: AboutNavigator,
+      navigationOptions: {
+        tabBarLabel: "About",
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="info" type="font-awesome" color={tintColor} size={24} />
+        )
+      }
+     },
+    Contact: { screen: ContactNavigator,
+      navigationOptions: {
+        tabBarLabel: "Contact",
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="address-card" type="font-awesome" color={tintColor} size={24} />
+        )
+      }
+     },
   },
   {
     tabBarOptions: {
+      activeTintColor: "#e91e63",
+      activeBackgroundColor: "#fff",
       style: {
         backgroundColor: "#f5e0d3",
+      },
+      labelStyle: {
+        fontSize: 18,
       },
     },
   }
@@ -114,5 +226,13 @@ class Main extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+  stackIcon: {
+    marginLeft: 10,
+    color: "#fff",
+    fontSize: 24
+  }
+})
 
 export default Main;

@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { RECIPES } from "../shared/recipes";
+import { baseUrl } from "../shared/baseUrl";
 
 class Recipes extends Component {
 
@@ -24,7 +25,8 @@ class Recipes extends Component {
             title={item.name}
             subtitle={item.directions}
             onPress={() => navigate("RecipeInfo", { recipeId: item.id})}
-            leftAvatar={{ source: require("./images/crepes.jpg") }}
+            //leftAvatar={{ source: require("./images/crepes.jpg") }}
+            leftAvatar={{source: {uri: baseUrl + item.image}}}
           />
         );
       };
